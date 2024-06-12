@@ -5,14 +5,12 @@ type Item {
     createdAt: DateTime!
     updatedAt: DateTime!
     tags: [String!]!
-    emplacementId: String!
     emplacement: Emplacement!
-    metadata: [Metadata!]!
 }
 
 type Query {
     item(id: String!): Item
-    items: [Item!]!
+    items(search: SearchItemAggregation): [Item!]!
 }
 
 type Mutation {
@@ -21,10 +19,23 @@ type Mutation {
     deleteItem(id: String!): Item!
 }
 
+input SearchItemAggregation {
+    filter: SearchItemFilter
+    skip: Int
+    take: Int
+}
+
+input SearchItemFilter {
+    title: FilterString
+    description: FilterString
+    tags: FilterStringList
+    emplacementId: FilterString
+}
+
 input CreateItemInput {
     title: String!
     description: String!
-    tags: [String!]!
+    tags: [String!]
     emplacementId: String!
 }
 

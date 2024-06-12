@@ -13,7 +13,7 @@ class Item {
     tags: string[];
     emplacement: Emplacement;
 
-    constructor(id: string, title: string = "", description: string = "", createdAt: Date = new Date(), updatedAt: Date = new Date(), tags: string[] = [], emplacement: Emplacement = new Emplacement("")) {
+    constructor(id: string, title = "", description = "", createdAt: Date = new Date(), updatedAt: Date = new Date(), tags: string[] = [], emplacement: Emplacement = new Emplacement("")) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -23,11 +23,11 @@ class Item {
         this.emplacement = emplacement;
     }
 
-    static fromPrisma(item: FromPrismaType, narrow: boolean = false): Item {
-        return new Item(item.id, item.title, item.description, item.createdAt, item.updatedAt, item.tags, Emplacement.fromPrisma(item.emplacement, true));
+    static fromPrisma(item: FromPrismaType, narrow = false): Item {
+        return new Item(item.id, item.title, item.description, item.createdAt, item.updatedAt, item.tags, narrow ? new Emplacement(item.emplacement?.id) : Emplacement.fromPrisma(item.emplacement, true));
     }
 
-    toPrisma(narrow: boolean = false): FromPrismaType {
+    toPrisma(narrow = false): FromPrismaType {
         if (narrow) return { id: this.id };
         return {
             id: this.id,

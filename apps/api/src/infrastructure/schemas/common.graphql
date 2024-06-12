@@ -1,0 +1,34 @@
+scalar DateTime
+
+enum FilterStringType {
+    EQUALS
+    CONTAINS
+    STARTS_WITH
+    ENDS_WITH
+}
+
+input FilterString {
+    type: FilterStringType!
+    value: String!
+}
+
+enum FilterStringListType {
+    IN
+    NOT_IN
+}
+
+input FilterStringList {
+    type: FilterStringListType!
+    value: [String!]!
+}
+
+enum FilterDateType {
+    BEFORE
+    AFTER
+    EQUALS
+}
+
+input FilterDate {
+    type: FilterDateType!
+    value: DateTime!
+}

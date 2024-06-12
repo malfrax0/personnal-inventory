@@ -2,7 +2,6 @@ import { Prisma } from "@prisma/client";
 import Item from "../../domain/entities/item.entity";
 import prisma from "../prisma";
 
-
 export const findItemById = async (id: string): Promise<Item | null> => {
     const item = await prisma.item.findUnique({
         where: { id },
@@ -13,19 +12,28 @@ export const findItemById = async (id: string): Promise<Item | null> => {
     return item ? Item.fromPrisma(item) : null;
 }
 
-export const findAllItems = async (itemWhere: Prisma.ItemWhereInput): Promise<Item[]> => {
+export const findManyItems = async (itemWhere: Prisma.ItemWhereInput, skip = 0, take = 50): Promise<Item[]> => {
     const items = await prisma.item.findMany({
         include: {
             emplacement: true
         },
-        where: itemWhere
+        where: itemWhere,
+        skip,
+        take
     });
     return items.map(item => Item.fromPrisma(item));
 }
 
 export const createItem = async (createInput: Prisma.ItemCreateInput): Promise<Item> => {
     const createdItem = await prisma.item.create({
-        data: createInput
+        data: {
+            ...createInput,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        },
+        include: {
+            emplacement: true
+        }
     });
     return Item.fromPrisma(createdItem);
 }
@@ -33,7 +41,10 @@ export const createItem = async (createInput: Prisma.ItemCreateInput): Promise<I
 export const updateItem = async (id: string, updateInput: Prisma.ItemUpdateInput): Promise<Item | null> => {
     const updatedItem = await prisma.item.update({
         where: { id },
-        data: updateInput,
+        data: {
+            ...updateInput,
+            updatedAt: new Date()
+        },
         include: {
             emplacement: true
         }
@@ -53,7 +64,7 @@ export const deleteItem = async (id: string): Promise<Item | null> => {
 
 export default {
     findItemById,
-    findAllItems,
+    findManyItems,
     createItem,
     updateItem,
     deleteItem

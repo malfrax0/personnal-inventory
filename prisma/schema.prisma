@@ -35,5 +35,4 @@ model Item {
   tags String[]
   emplacementId String
   emplacement Emplacement @relation(fields: [emplacementId], references: [id])
-  metadata Metadata[] @relation("ItemToMetadata")
 }

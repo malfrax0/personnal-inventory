@@ -8,7 +8,11 @@ export const findEmplacementById = async (id: string): Promise<Emplacement | nul
         where: { id },
         include: {
             parent: true,
-            children: true,
+            children: {
+                include: {
+                    items: true
+                }
+            },
             items: true
         }
     });
@@ -19,7 +23,11 @@ export const findAllEmplacements = async (): Promise<Emplacement[]> => {
     const emplacements = await prisma.emplacement.findMany({
         include: {
             parent: true,
-            children: true,
+            children: {
+                include: {
+                    items: true
+                }
+            },
             items: true
         }
     });
@@ -28,7 +36,11 @@ export const findAllEmplacements = async (): Promise<Emplacement[]> => {
 
 export const createEmplacement = async (createInput: Prisma.EmplacementCreateInput): Promise<Emplacement> => {
     const createdEmplacement = await prisma.emplacement.create({
-        data: createInput
+        data: {
+            ...createInput,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        }
     });
     return Emplacement.fromPrisma(createdEmplacement);
 }
@@ -36,7 +48,10 @@ export const createEmplacement = async (createInput: Prisma.EmplacementCreateInp
 export const updateEmplacement = async (id: string, updateInput: Prisma.EmplacementUpdateInput): Promise<Emplacement | null> => {
     const updatedEmplacement = await prisma.emplacement.update({
         where: { id },
-        data: updateInput,
+        data: {
+            ...updateInput,
+            updatedAt: new Date()
+        },
         include: {
             parent: true,
             children: true,

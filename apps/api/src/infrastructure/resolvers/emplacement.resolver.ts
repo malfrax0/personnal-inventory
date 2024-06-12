@@ -1,22 +1,23 @@
+import services from "../../domain/services";
 
-const emplacement = (parent, args, context) => {
-    return context.emplacementService.getEmplacement(args.id);
+const emplacement = (_, args) => {
+    return services.emplacement.getEmplacement(args.id);
 };
 
-const emplacements = (parent, args, context) => {
-    return context.emplacementService.getEmplacements();
+const emplacements = () => {
+    return services.emplacement.getEmplacements();
 };
 
-const createEmplacement = (parent, args, context) => {
-    return context.emplacementService.createEmplacement(args.input);
+const createEmplacement = (_, args) => {
+    return services.emplacement.createEmplacement(args.input);
 };
 
-const updateEmplacement = (parent, args, context) => {
-    return context.emplacementService.updateEmplacement(args.id, args.input);
+const updateEmplacement = (_, args) => {
+    return services.emplacement.updateEmplacement(args.id, args.input);
 };
 
-const deleteEmplacement = (parent, args, context) => {
-    return context.emplacementService.deleteEmplacement(args.id);
+const deleteEmplacement = (_, args) => {
+    return services.emplacement.deleteEmplacement(args.id);
 };
 
 export default {

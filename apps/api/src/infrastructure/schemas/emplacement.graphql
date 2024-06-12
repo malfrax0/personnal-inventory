@@ -1,12 +1,11 @@
 type Emplacement {
-    id: String! @id @default(uuid())
+    id: String!
     title: String!
     description: String!
-    parentId: String
-    createdAt: DateTime! @default(now())
-    updatedAt: DateTime! @updatedAt
-    parent: Emplacement @relation(name: "EmplacementToEmplacement", fields: [parentId], references: [id])
-    children: [Emplacement] @relation(name: "EmplacementToEmplacement")
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    parent: Emplacement
+    children: [Emplacement!]
     items: [Item]
 }
 
