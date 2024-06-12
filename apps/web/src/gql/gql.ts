@@ -13,6 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n    query Q_EMPLACEMENTS {\n        emplacements {\n            id\n            title\n            description\n            createdAt\n            updatedAt\n        }\n    }\n": types.Q_EmplacementsDocument,
+    "\n    query Q_EMPLACEMENT($id: String!) {\n        emplacement(id: $id) {\n            id\n            title\n            description\n            createdAt\n            updatedAt\n            parent {\n                id\n                title\n            }\n            items {\n                id\n                title\n                description\n                tags\n            }\n        }\n    }\n": types.Q_EmplacementDocument,
     "\n    query Q_READY {\n        ready\n    }\n": types.Q_ReadyDocument,
 };
 
@@ -30,6 +32,14 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query Q_EMPLACEMENTS {\n        emplacements {\n            id\n            title\n            description\n            createdAt\n            updatedAt\n        }\n    }\n"): (typeof documents)["\n    query Q_EMPLACEMENTS {\n        emplacements {\n            id\n            title\n            description\n            createdAt\n            updatedAt\n        }\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query Q_EMPLACEMENT($id: String!) {\n        emplacement(id: $id) {\n            id\n            title\n            description\n            createdAt\n            updatedAt\n            parent {\n                id\n                title\n            }\n            items {\n                id\n                title\n                description\n                tags\n            }\n        }\n    }\n"): (typeof documents)["\n    query Q_EMPLACEMENT($id: String!) {\n        emplacement(id: $id) {\n            id\n            title\n            description\n            createdAt\n            updatedAt\n            parent {\n                id\n                title\n            }\n            items {\n                id\n                title\n                description\n                tags\n            }\n        }\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

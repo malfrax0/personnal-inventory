@@ -9,7 +9,10 @@ const router = createBrowserRouter(Routes);
 
 const theme = createTheme({
   palette: {
-    mode: "dark"
+    mode: "dark",
+    primary: {
+      main: '#2196f3',
+    },
   }
 })
 

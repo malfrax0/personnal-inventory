@@ -38,7 +38,6 @@ export type Emplacement = {
   id: Scalars['String']['output'];
   items?: Maybe<Array<Maybe<Item>>>;
   parent?: Maybe<Emplacement>;
-  parentId?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -60,7 +59,7 @@ export type FilterString = {
 };
 
 export type FilterStringList = {
-  type: FilterStringType;
+  type: FilterStringListType;
   value: Array<Scalars['String']['input']>;
 };
 
@@ -81,7 +80,6 @@ export type Item = {
   createdAt: Scalars['DateTime']['output'];
   description: Scalars['String']['output'];
   emplacement: Emplacement;
-  emplacementId: Scalars['String']['output'];
   id: Scalars['String']['output'];
   tags: Array<Scalars['String']['output']>;
   title: Scalars['String']['output'];
@@ -152,7 +150,7 @@ export type QueryItemArgs = {
 
 
 export type QueryItemsArgs = {
-  searchItem?: InputMaybe<SearchItemFilter>;
+  search?: InputMaybe<SearchItemAggregation>;
 };
 
 export type SearchItemAggregation = {
@@ -181,10 +179,24 @@ export type UpdateItemInput = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Q_EmplacementsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Q_EmplacementsQuery = { __typename?: 'Query', emplacements: Array<{ __typename?: 'Emplacement', id: string, title: string, description: string, createdAt: any, updatedAt: any }> };
+
+export type Q_EmplacementQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type Q_EmplacementQuery = { __typename?: 'Query', emplacement?: { __typename?: 'Emplacement', id: string, title: string, description: string, createdAt: any, updatedAt: any, parent?: { __typename?: 'Emplacement', id: string, title: string } | null, items?: Array<{ __typename?: 'Item', id: string, title: string, description: string, tags: Array<string> } | null> | null } | null };
+
 export type Q_ReadyQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type Q_ReadyQuery = { __typename?: 'Query', ready?: boolean | null };
 
 
+export const Q_EmplacementsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Q_EMPLACEMENTS"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"emplacements"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Q_EmplacementsQuery, Q_EmplacementsQueryVariables>;
+export const Q_EmplacementDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Q_EMPLACEMENT"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"emplacement"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"parent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}}]}}]}}]}}]} as unknown as DocumentNode<Q_EmplacementQuery, Q_EmplacementQueryVariables>;
 export const Q_ReadyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Q_READY"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ready"}}]}}]} as unknown as DocumentNode<Q_ReadyQuery, Q_ReadyQueryVariables>;
