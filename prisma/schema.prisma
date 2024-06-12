@@ -13,14 +13,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Metadata {
-  id  Int @id @default(autoincrement())
-  key String @unique
-  value String
-  objectId String
-  object Object @relation("ObjectToMetadata", fields: [objectId], references: [id])
-}
-
 model Emplacement {
   id String @id @default(uuid())
   title String
@@ -30,11 +22,11 @@ model Emplacement {
   updatedAt DateTime @updatedAt
   parent Emplacement? @relation("EmplacementToEmplacement", fields: [parentId], references: [id])
   children Emplacement[] @relation("EmplacementToEmplacement")
-  objects Object[]
+  items Item[]
 }
 
 // model Object, id string default uuid, title string, description string, emplacementId string, emplacement Emplacement, emplacement mandatory, tags string list, metadata Metadata list
-model Object {
+model Item {
   id String @id @default(uuid())
   title String
   description String
@@ -43,5 +35,5 @@ model Object {
   tags String[]
   emplacementId String
   emplacement Emplacement @relation(fields: [emplacementId], references: [id])
-  metadata Metadata[] @relation("ObjectToMetadata")
+  metadata Metadata[] @relation("ItemToMetadata")
 }

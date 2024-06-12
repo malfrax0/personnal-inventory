@@ -1,0 +1,34 @@
+type Emplacement {
+    id: String! @id @default(uuid())
+    title: String!
+    description: String!
+    parentId: String
+    createdAt: DateTime! @default(now())
+    updatedAt: DateTime! @updatedAt
+    parent: Emplacement @relation(name: "EmplacementToEmplacement", fields: [parentId], references: [id])
+    children: [Emplacement] @relation(name: "EmplacementToEmplacement")
+    items: [Item]
+}
+
+type Query {
+    emplacement(id: String!): Emplacement
+    emplacements: [Emplacement!]!
+}
+
+type Mutation {
+    createEmplacement(input: CreateEmplacementInput!): Emplacement!
+    updateEmplacement(id: String!, input: UpdateEmplacementInput!): Emplacement!
+    deleteEmplacement(id: String!): Emplacement!
+}
+
+input CreateEmplacementInput {
+    title: String!
+    description: String!
+    parentId: String
+}
+
+input UpdateEmplacementInput {
+    title: String
+    description: String
+    parentId: String
+}
